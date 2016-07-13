@@ -1,0 +1,15 @@
+﻿@model City_Go.Models.PlacesModel
+
+<ul class="commentList">
+    @foreach (var item in Model.Reviews)
+    {
+        <li>
+            <div class="commenterImage">
+                <!--тут будет картинка. Но это сделаем, когда будем делать страницы пользователей. Сейчас у нас нету базы с пользователями и следовательно и их фото-->
+            </div>
+            <div class="commentText">
+                <p class="">@item.Text</p>
+            </div>
+        </li>
+    }
+</ul>

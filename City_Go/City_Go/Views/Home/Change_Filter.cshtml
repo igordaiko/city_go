@@ -1,0 +1,16 @@
+﻿@using City_Go.Models;
+@{ 
+    List<FilterModel> Model = ViewBag.Filters;
+
+}
+        <ul class="choice-list">
+
+            @foreach (var item in Model)
+            {
+                <li class="check_b @item.Name" id="filter_@item.ID" data-toggle="tooltip" onclick="add_remove_filter(@item.ID)" data-placement="top" title="@item.Description"></li>
+
+            }
+
+        </ul>
+<script src="js/animated-checkboxes.js"></script>
+<script src="~/js/js.js"></script>

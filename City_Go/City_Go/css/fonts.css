@@ -1,0 +1,16 @@
+ @font-face {
+    font-family: 'broadway'; 
+    src: url('../fonts/broadway/broadway.ttf'); 
+}
+@font-face{
+    font-family:'brushscript';
+    src: url("../fonts/brushscript/brushscript.ttf");
+}
+@font-face{
+    font-family: 'comic-sans-ms';
+    src: url(../fonts/comic-sans-ms/comic-sans-ms-bold.ttf);
+}
+@font-face{
+    font-family: 'comic-sans-ms-bold';
+    src: url(../fonts/comic-sans-bold/comicbd.ttf);
+}

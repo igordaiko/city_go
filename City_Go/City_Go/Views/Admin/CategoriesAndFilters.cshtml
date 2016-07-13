@@ -1,0 +1,323 @@
+﻿@model City_Go.Models.CategoriesAndFiltersPageModel
+@using City_Go.Models;
+@{
+    ViewBag.Title = "Список фильтров и категорий";
+    Layout = "~/Views/Admin/_AdminLayout.cshtml";
+}
+
+  <!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Список фильтров и категорий
+            <small></small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i>Главная</a></li>
+            <li><a href="#">Страницы</a></li>
+            <li class="active">Список фильтров и категорий</li>
+        </ol>
+    </section>
+    <div class="pad margin no-print">
+        <div class="callout callout-info" style="margin-bottom: 0!important;">
+            <h4><i class="fa fa-info"></i> Подсказка:</h4>
+            Придумал новый фильтр или категорию. Здесь ты можешь все это добавить.
+            <div class="row">
+                    <button type="button" id="add_category" class="btn btn-success pull-right" style="margin-right: 5px;">
+                        <i class="fa fa-plus indent_pad"></i>Добавить категорию
+                    </button>
+                    <button type="button" id="add_filter" class="btn btn-success pull-right" style="margin-right: 5px;">
+                        <i class="fa fa-plus indent_pad"></i>Добавить фильтр
+                    </button>
+            </div>
+        </div>
+
+    </div>
+    <!-- Main content -->
+    <section class="invoice">
+        <!-- title row -->
+        <div class="row">
+            <div class="col-xs-12">
+                <h2 class="page-header">
+                    <i class="fa fa-globe"></i> CityGO, Inc.
+                    <small class="pull-right">Date: 2/10/2014</small>
+                </h2>
+            </div>
+            <!-- /.col -->
+        </div>
+
+        <!-- Table row -->
+        <div class="row">
+            <div class="col-xs-6 table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>Фильтры</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="filters">
+                        @foreach (FilterModel filter in Model.Filters)
+                        {
+                            <tr>
+                                <td><input type="text" style="width:40px;" id="filter_id_@filter.ID" hidden value="@filter.ID" />@filter.ID</td>
+                                <td><input type="text" style="width:150px;" id="filter_Description_@filter.ID" hidden  value="@filter.Description" />@filter.Description</td>
+                                <td><input type="text" style="width:100px;" id="filter_Name_@filter.ID" hidden value="@filter.Name" />@filter.Name</td>
+                                <td><input type="text" style="width:100px;" id="filter_Cats_@filter.ID" hidden value="@filter.Cat_id" />@filter.Cat_id</td>
+
+                                <td class="bla">
+                                    <div class="row">
+                                            <button type="button" id="Filters_@filter.ID" class="btn btn-danger pull-right delete_btn" style="margin-right: 5px;">
+                                                <i class="fa fa-remove"></i>
+                                            </button>
+
+                                            <button type="button" id="filter_@filter.ID" class="btn btn-warning pull-right edit_btn" style="margin-right: 5px;">
+                                                <i class="fa fa-edit"></i>
+                                            </button>
+
+                                            <button type="button" class="btn btn-success pull-right  save_btn" id="filter_@filter.ID" style="margin-right: 5px;">
+                                                <i class="fa fa-save"></i>
+                                            </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.col -->
+            <!--.col-->
+            <div class="col-xs-6 table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>Категории</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="cats">
+                        @foreach (CategoriesModel cat in Model.Categories)
+                        {
+                            <tr>
+                                <td><input type="text" style="width:40px;" id="category_id_@cat.ID" hidden value="@cat.ID" />@cat.ID</td>
+                                <td><input type="text" style="width:100px;" id="category_Name_@cat.ID" hidden value="@cat.Name" />@cat.Name</td>
+                                <td><input type="text" style="width:100px;" id="category_Html_@cat.ID" hidden value="@cat.html_id" />@cat.html_id</td>
+
+                                <td>
+                                    <div class="row">
+                                        <button type="button" id="Categories_@cat.ID" class="btn btn-danger pull-right delete_btn" style="margin-right: 5px;">
+                                            <i class="fa fa-remove"></i>
+                                        </button>
+
+                                        <button type="button" id="category_@cat.ID" class="btn btn-warning pull-right edit_btn" style="margin-right: 5px;">
+                                            <i class="fa fa-edit"></i>
+                                        </button>
+
+                                        <button type="button" class="btn btn-success pull-right  save_btn" id="category_@cat.ID" style="margin-right: 5px;">
+                                            <i class="fa fa-save"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                        
+                    </tbody>
+                </table>
+            </div>
+            <!--/.col-->
+        </div>
+        <!-- /.row -->
+
+
+    </section>
+    <!-- /.content -->
+    <div class="clearfix"></div>
+</div>
+<!-- /.content-wrapper -->
+<script src="~/Scripts/jquery-3.0.0.min.js"></script>
+<script>
+    $(".edit_btn").click(function () {
+        var id = $(this).attr("id").split('_')[1];
+        var tablename = $(this).attr("id").split('_')[0];
+
+        if (tablename == "filter") {
+            $("#filter_id_" + id).removeAttr("hidden");
+            $("#filter_Description_" + id).removeAttr("hidden");
+            $("#filter_Cats_" + id).removeAttr("hidden");
+            $("#filter_Name_" + id).removeAttr("hidden");
+        }
+        else {
+            $("#category_id_" + id).removeAttr("hidden");
+            $("#category_Html_" + id).removeAttr("hidden");
+            $("#category_Name_" + id).removeAttr("hidden");
+        }
+
+        var node = $(this).closest("div").closest("td").prevAll().children();
+        $(this).closest("div").closest("td").prevAll().each(function () {
+            node = $(this).children();
+            $(this).html(node);
+        })
+    })
+    $(".save_btn").click(function () {
+        alert();
+        if ($(this).attr("id") == "category_") {
+            
+            $(this).attr("id", $("#category_id_").val());
+            $("#category_Name_").attr("id", "#category_Name_" + $("#category_id_").val())
+            $("#category_Html_").attr("id", "#category_Html_" + $("#category_id_").val())
+        }
+        else if ($(this).attr("id") == "filter_")
+            $(this).attr("id", $("#category_id_").val());
+
+        var id = $(this).attr("id").split('_')[1];
+        var table = $(this).attr("id").split('_')[0];
+        if (table == "filter") {
+            var description = $("#filter_Description_" + id).val();
+            var name = $("#filter_Name_" + id).val();
+            var cats = $("#filter_Cats_" + id).val();
+        }
+        else{
+            var name = $("#category_Name_" + id).val();
+            var cats = $("#category_Html_" + id).val();
+        }
+            $.get({
+                type: "POST",
+                url: "/Admin/CategoriesAndFilters?description=" + description + "&name=" + name + "&cats=" + cats + "&table=" + table + "&id=" + id,
+                success: function (result) {
+                    alert("Cохранено");
+                },
+            });
+            if (table == "filter") {
+                $("#filter_id_" + id).attr("hidden", "hidden");
+                $("#filter_Description_" + id).attr("hidden", "hidden");
+                $("#filter_Cats_" + id).attr("hidden", "hidden");
+                $("#filter_Name_" + id).attr("hidden", "hidden");
+            }
+            else {
+                $("#category_id_" + id).attr("hidden", "hidden");
+                $("#category_Html_" + id).attr("hidden", "hidden");
+                $("#category_Name_" + id).attr("hidden", "hidden");
+            }
+
+            var node = $(this).closest("div").closest("td").prevAll().children();
+            $(this).closest("div").closest("td").prevAll().each(function () {
+                node = $(this).children();
+
+                $(this).html(node);
+                $(this).append(node.val());
+            })
+    })
+    $("#add_category").click(function () {
+        var parent_node = $("#cats");
+        var tr = "<tr><td><input type='text' style='width:40px;' id='category_id_' /></td>" +
+                        "<td><input type='text' style='width:100px;' id='category_Name_' /></td>" +
+                        "<td><input type='text' style='width:100px;' id='category_Html_' /></td>" +
+                               "<td>" +
+                                   "<div class='row'>" +
+                                       "<button type='button' class='btn btn-danger pull-right' style='margin-right: 5px;'>" +
+                                           "<i class='fa fa-remove'></i>" +
+                                       "</button>" +
+                                       "<button type='button' id='category_' class='btn btn-warning pull-right edit_btn' style='margin-right: 5px;'>" +
+                                           "<i class='fa fa-edit'></i>" +
+                                       "</button>" +
+                                       "<button type='button' id='category_' class='btn btn-success pull-right  save_btn' style='margin-right: 5px;'>" +
+                                           "<i class='fa fa-save'></i>" +
+                                       "</button>" +
+                                    "</div>" +
+                               "</td></tr>";
+        $("#cats").append(tr);
+    })
+    $("#add_filter").click(function () {
+        var parent_node = $("#filters");
+        var tr = "<tr><td><input type='text' style='width:40px;' id='filter_id_' /></td>" +
+                        "<td><input type='text' style='width:100px;' id='filter_Name_' /></td>" +
+                        "<td><input type='text' style='width:100px;' id='filter_Description_' /></td>" +
+                        "<td><input type='text' style='width:100px;' id='filter_Cats_' /></td>" +
+                               "<td>" +
+                                   "<div class='row'>" +
+                                       "<button type='button' class='btn btn-danger pull-right' style='margin-right: 5px;'>" +
+                                           "<i class='fa fa-remove'></i>" +
+                                       "</button>" +
+                                       "<button type='button' id='filter_' class='btn btn-warning pull-right edit_btn' style='margin-right: 5px;'>" +
+                                           "<i class='fa fa-edit'></i>" +
+                                       "</button>" +
+                                       "<button type='button' id='filter_' class='btn btn-success pull-right  save_btn' style='margin-right: 5px;'>" +
+                                           "<i class='fa fa-save'></i>" +
+                                       "</button>" +
+                                    "</div>" +
+                               "</td></tr>";
+        $("#filters").append(tr);
+    })
+    $("body").on('click', '.save_btn', function () {
+        if ($(this).attr("id") == "category_") {
+            $(this).attr("id","category_" + $("#category_id_").val());
+            $("#category_Name_").attr("id", "category_Name_" + $("#category_id_").val())
+            $("#category_Html_").attr("id", "category_Html_" + $("#category_id_").val())
+            $("#category_id_").attr("id", "category_id_" + $("#category_id_").val());
+
+        }
+            
+        else if ($(this).attr("id") == "filter_") {
+            $(this).attr("id", "filter_" + $("#filter_id_").val());
+            $("#filter_Name_").attr("id", "filter_Name_" + $("#filter_id_").val())
+            $("#filter_Description_").attr("id", "filter_Description_" + $("#filter_id_").val())
+            $("#filter_Cats_").attr("id", "filter_Cats_" + $("#filter_id_").val())
+            $("#filter_id_").attr("id", "filter_id_" + $("#filter_id_").val());
+
+
+        }
+        var id = $(this).attr("id").split('_')[1];
+        var table = $(this).attr("id").split('_')[0];
+        if (table == "filter") {
+            var description = $("#filter_Description_" + id).val();
+            var name = $("#filter_Name_" + id).val();
+            var cats = $("#filter_Cats_" + id).val();
+        }
+        else {
+            var name = $("#category_Name_" + id).val();
+            var cats = $("#category_Html_" + id).val();
+        }
+        $.get({
+            type: "POST",
+            url: "/Admin/CategoriesAndFilters?description=" + description + "&name=" + name + "&cats=" + cats + "&table=" + table + "&id=" + id,
+            success: function (result) {
+                alert("Cохранено");
+            },
+        });
+        if (table == "filter") {
+            $("#filter_id_" + id).attr("hidden", "hidden");
+            $("#filter_Description_" + id).attr("hidden", "hidden");
+            $("#filter_Cats_" + id).attr("hidden", "hidden");
+            $("#filter_Name_" + id).attr("hidden", "hidden");
+        }
+        else {
+            $("#category_id_" + id).attr("hidden", "hidden");
+            $("#category_Html_" + id).attr("hidden", "hidden");
+            $("#category_Name_" + id).attr("hidden", "hidden");
+        }
+
+        var node = $(this).closest("div").closest("td").prevAll().children();
+        $(this).closest("div").closest("td").prevAll().each(function () {
+            node = $(this).children();
+
+            $(this).html(node);
+            $(this).append(node.val());
+        })
+    });
+    $("body").on('click', '.delete_btn', function () {
+        if (confirm("Вы уверены, что хотите удалить?")) {
+            var id = $(this).attr("id").split('_')[1];
+            var table = $(this).attr("id").split('_')[0];
+            $.get({
+                type: "POST",
+                url: "/Admin/DeleteCategoriesFilters?&table=" + table + "&id=" + id,
+                success: function (result) {
+                    window.location.reload();
+                },
+            });
+        }
+    });
+</script>

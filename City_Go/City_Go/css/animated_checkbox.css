@@ -1,0 +1,204 @@
+
+.mrgn-50 {
+	margin-top:50px}
+
+a { 
+    color:#FFF;
+    text-decoration:none
+}
+a:hover{ 
+    color:#09F; 
+    text-decoration:none
+}
+h1 {
+	margin-top:50px;
+	color:#FFF;
+	font-size:3em; 
+	text-align:center;}
+
+.choice-list {
+  margin: 50px auto;
+  width: 840px;
+  display: block;
+  padding: 0;
+}
+
+.check_b {
+  float: left;
+  margin-top: -5px;
+  width: 80px;
+  height: 80px;
+  cursor: pointer;
+  -moz-border-radius: 80px;
+  -webkit-border-radius: 80px;
+  border-radius: 80px;
+  display: block;
+  background-color: rgba(0, 0, 0, 0.25);
+  margin: 20px;
+  -moz-transition: all 0.15s cubic-bezier(0.5, 0, 0, 1.5);
+  -o-transition: all 0.15s cubic-bezier(0.5, 0, 0, 1.5);
+  -webkit-transition: all 0.15s cubic-bezier(0.5, 0, 0, 1.5);
+  transition: all 0.15s cubic-bezier(0.5, 0, 0, 1.5);
+}
+.check_b:hover {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.check_b:hover:after {
+  color: white;
+}
+.check_b:after {
+  line-height: 85px;
+  font-family: "FontAwesome";
+  display: block;
+  content: "";
+  color: rgba(255, 255, 255, 0.5);
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  -moz-transform: scale(0.5);
+  -ms-transform: scale(0.5);
+  -webkit-transform: scale(0.5);
+  transform: scale(0.5);
+  -moz-border-radius: 100%;
+  -webkit-border-radius: 100%;
+  border-radius: 100%;
+  font-size: 54px;
+  -moz-transition: all 0.15s cubic-bezier(0.5, 0, 0, 1.5), font-size 0.35s cubic-bezier(0.5, 0, 0, 3);
+  -o-transition: all 0.15s cubic-bezier(0.5, 0, 0, 1.5), font-size 0.35s cubic-bezier(0.5, 0, 0, 3);
+  -webkit-transition: all 0.15s cubic-bezier(0.5, 0, 0, 1.5), font-size 0.35s cubic-bezier(0.5, 0, 0, 3);
+  transition: all 0.15s cubic-bezier(0.5, 0, 0, 1.5), font-size 0.35s cubic-bezier(0.5, 0, 0, 3);
+}
+.check_b.is-checked:after {
+  -moz-transform: scale(1);
+  -ms-transform: scale(1);
+  -webkit-transform: scale(1);
+  transform: scale(1);
+  font-size: 44px;
+  color: #f2b032 ;
+}
+.check_b.is-checked:hover:after {
+  -moz-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+}
+
+.check:after {
+  content: "\f00c";
+  background-color: rgba(165, 194, 92, 0);
+}
+.check.is-checked:after {
+  background-color: #f2b032 ;
+}
+
+.heart:after {
+  content: "\f004";
+  background-color: rgba(241, 76, 56, 0);
+}
+.heart.is-checked:after {
+  background-color: #fff;
+}
+
+.star:after {
+  content: "\f005";
+  background-color: rgba(255, 202, 37, 0);
+}
+.star.is-checked:after {
+  background-color:#fff ;
+}
+
+.fire:after {
+  content: "\f06d";
+  background-color: rgba(145, 61, 136, 0);
+}
+.fire.is-checked:after {
+  background-color:#fff ;
+}
+
+.bell:after {
+  content: "\f0f3";
+  background-color: rgba(244, 179, 80, 0);
+}
+.bell.is-checked:after {
+  background-color:#fff ;
+}
+
+.map:after {
+  content: "\f12e";
+  background-color: rgba(68,108,179, 0);
+}
+.map.is-checked:after {
+  background-color:#fff ;
+}
+
+.wifi:after {
+  content: "\f1eb";
+  background-color: rgba(224, 130, 131, 0);
+}
+.wifi.is-checked:after {
+  background-color:#fff ;
+}
+.game:after {
+  content: "\f11b";
+  background-color: rgba(241, 76, 56, 0);
+}
+.game.is-checked:after {
+  background-color:#fff ;
+}
+.rocket:after {
+  content: "\f135";
+  background-color: rgba(241, 76, 56, 0);
+}
+.rocket.is-checked:after {
+  background-color:#fff ;
+}
+.math:after {
+  content: "\f12b";
+  background-color: rgba(241, 76, 56, 0);
+}
+.math.is-checked:after {
+  background-color:#fff ;
+}
+.communication:after {
+  content: "\f0e6";
+  background-color: rgba(241, 76, 56, 0);
+}
+.communication.is-checked:after {
+  background-color:#fff ;
+}
+.moon:after {
+  content: "\f186";
+  background-color: rgba(241, 76, 56, 0);
+}
+.moon.is-checked:after {
+  background-color:#fff ;
+}
+.cinema:after {
+  content: "\f008";
+  background-color: rgba(241, 76, 56, 0);
+}
+.cinema.is-checked:after {
+  background-color:#fff ;
+}
+.key:after {
+  content: "\f084";
+  background-color: rgba(241, 76, 56, 0);
+}
+.key.is-checked:after {
+  background-color:#fff ;
+}
+.coffee:after {
+  content: "\f0f4";
+  background-color: rgba(241, 76, 56, 0);
+}
+.coffee.is-checked:after {
+  background-color:#fff ;
+}
+.beer:after {
+  content: "\f0fc";
+  background-color: rgba(241, 76, 56, 0);
+}
+.beer.is-checked:after {
+  background-color: #fff;
+}
+

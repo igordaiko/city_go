@@ -1,0 +1,413 @@
+﻿@model City_Go.Models.PlacesModel
+@using System.Data;
+@using System.Data.Sql;
+@using System.Data.SqlClient;
+
+
+@using City_Go.Models;
+@{
+
+    ViewBag.Title = "EditPlace";
+    Layout = "~/Views/Admin/_AdminLayout.cshtml";
+    List<CategoriesModel> cats_list = ViewBag.Cats_List;
+    List<FilterModel> filters_list = ViewBag.Filters_List;
+}
+<script src="~/Scripts/jquery-3.0.0.js"></script>
+<script src="~/Scripts/tinymce/jquery.tinymce.js"></script>
+  <!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Профиль места
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Главная</a></li>
+            <li><a href="#">Страницы</a></li>
+            <li class="active">Редактирование места</li>
+        </ol>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-3">
+                <!-- Profile Image -->
+                <div class="box box-primary">
+                    <div class="box-body box-profile">
+                        <img class="profile-user-img img-responsive img-circle" src="@Model.Img" alt="User profile picture">
+                        <h3 class="profile-username text-center">@Model.Name</h3>
+                        <ul class="list-group list-group-unbordered">
+                            <li class="list-group-item">
+                                <b>Посетителей</b> <a class="pull-right">@Model.Visitors</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Отзывов</b> <a class="pull-right">@Model.Reviews.Count</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Понравилось</b> <a class="pull-right">@Model.Likes</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Не понравилось</b> <a class="pull-right">@Model.Dislikes</a>
+                            </li>
+                        </ul>
+                        <a href="/Home/Info_Page?id=@Model.ID" class="btn btn-primary btn-block"><b>Посмотеть</b></a>
+                        <a href="#" id="delete_place" class="btn btn-danger btn-block"><b>Удалить место</b></a>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+                <!-- About Place Box -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Описание</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <strong><i class="fa fa-book margin-r-5"></i>Короткое описание</strong>
+                        @Html.Raw(Model.Description)
+                        <hr>
+                        <strong><i class="fa fa-map-marker margin-r-5"></i>Адрес</strong>
+                        @Html.Raw(Model.Address)
+                        <hr>
+
+                        <strong><i class="fa fa-hourglass-end margin-r-5"></i>Время работы</strong>
+                        @Html.Raw(Model.Work_Time)
+                        <hr>
+                        <strong><i class="fa fa-pencil margin-r-5"></i>Фильтры</strong>
+                        <p>
+                            @foreach (string str in Model.Filters.Split(';'))
+                            {
+                                <span class="label label-primary">@str</span>
+                            }
+                        </p>
+                        <hr>
+                        <strong><i class="fa fa-file-text-o margin-r-5"></i>Полное описание</strong>
+                        @Html.Raw(Model.FullDescription)
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+            <!-- /.col -->
+            <div class="col-md-9">
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#comment" data-toggle="tab">Отзывы</a></li>
+                        <li><a href="#description" data-toggle="tab">Описание</a></li>
+                        <li><a href="#photo" data-toggle="tab">Фото</a></li>
+
+
+                    </ul>
+                    <div class="tab-content">
+                        @foreach (ReviewModel review in Model.Reviews)
+                        {
+                            <div class="active tab-pane" id="comment">
+                                <!-- Post -->
+                                <div class="post">
+                                    <div class="user-block">
+                                        @*<img class="img-circle img-bordered-sm" src="../../dist/img/comment_pic/pic_4.png" alt="user image">*@
+                                        <span class="username">
+                                            <a href="#">@review.Name</a>
+                                            <a href="#" class="pull-right btn-box-tool"><i class="fa fa-times"></i></a>
+                                        </span>
+                                        <span class="description">@review.Date.ToShortDateString()</span>
+                                    </div>
+                                    <!-- /.user-block -->
+                                    <p>@review.Text</p>
+                                    </div>
+                                </div>
+                        }
+
+                        <!-- /.tab-pane -->
+                        <!--=============================PHOTO SECTION============================-->
+                        <div class="tab-pane" id="photo">
+                            <!-- The timeline -->
+                            <!-- /.user-block -->
+                            <div id="photos" class="row margin-bottom">
+                                @if (Model.Images.Length > 0)
+                                {
+                                    <ul class="col-sm-6">
+                                        @foreach (string img in Model.Images.Remove(Model.Images.Length - 1, 1).Split(';'))
+                                        {
+                                            <li style="list-style:none; display:block;">
+                                                <!--Ромка, Размер картинок поменять нужно-->
+                                                <img class="img-responsive delete_hover" style="max-width:100px; max-height:500px; background-size:contain;" src="@img" alt="Photo">
+                                                <button type="button" id="delete_img" onclick="delete_img(this)" value="@img" class="delete_img btn btn-danger pull-right" style="margin-right: 5px;">
+                                                    <i class="fa fa-remove"></i>
+                                                </button>
+                                            </li>
+                                        }
+                                    </ul>
+
+                                }
+                            </div>
+
+
+                                <div class="form-group margin-bottom-none">
+                                    <div class="col-sm-6">
+                                        <label for="inputFile">Загрузить фото</label>
+                                        <input type="file" multiple accept="image/*" name="file" id="inputFile">
+                                    </div>
+                                    <div>
+                                        <img id="img-preview" src="" style="max-width:100px;display:block; max-height:500px; background-size:contain;"   />
+                                        <br />
+                                        <a href="#" id="reset-img-preview">удалить изображения</a>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="progress-bar progress-bar-primary progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">
+                                            <span class="sr-only">40% Complete(success)</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <input type="button" id="save_img" class="btn btn-success pull-right btn-block btn-sm" value="Загрузить" />
+                                    </div>
+                                </div>
+                        </div>
+                        <!-- /.tab-pane -->
+                        <div class="tab-pane" id="description">
+                            @using (Html.BeginForm("EditPlace", "Admin", FormMethod.Post, new { enctype = "multipart/form-data", id = "form", @class = "form-horizontal" }))
+                            {
+                                @Html.ValidationSummary(true)
+                                <input type="hidden" name="id", value="@Model.ID" />
+                                 <div class="form-group">
+                                    <label for="inputName" class="col-sm-2 control-label">Название</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control" name="Name" value="@Model.Name" id="inputName" placeholder="Название места">
+                                    </div>
+
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputShortDescription" class="col-sm-2 control-label">Короткое описание</label>
+
+                                    <div class="col-sm-6">
+                                        <input type="text" name="Description" value="@Model.Description" class="form-control" id="inputShortDescription" placeholder="Короткое описание">
+                                    </div>
+
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputFullDescription" class="col-sm-2 control-label">Полное описание</label>
+
+                                    <!--Editor====If you wanna change it Igor - u can do it-->
+
+                                    <div class="col-sm-10 col-md-10">
+                                        <div id="editor-field">
+                                            @Html.EditorFor(model => model.FullDescription)
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="inputAdress" class="col-sm-2 control-label">Адрес</label>
+                                    <div class="col-sm-10">
+                                        <div id="editor-field">
+                                            @Html.EditorFor(model => model.Address)
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputContacts" class="col-sm-2 control-label">Контакты</label>
+                                    <div class="col-sm-10">
+                                        <div id="editor-field">
+                                            @Html.EditorFor(model => model.Contacts)
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="inputAvaregeSum" class="col-sm-2 control-label">Средняя цена в чеке</label>
+                                    <div class="col-sm-10">
+                                        <input type="number" class="form-control" name="Price" value="@Model.Price" id="inputAvaregeSum" placeholder="Средняя цена в чеке">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="inputWorkingHours" class="col-sm-2 control-label">Время работы</label>
+                                    <div class="col-sm-10">
+                                        <div id="editor-field">
+                                            @Html.EditorFor(model => model.Work_Time)
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="chooseCatagory" class="col-sm-2 control-label">Категории</label>
+                                    <div class="col-sm-offset-0 col-sm-2">
+                                        <ul class="checkbox catagory">
+
+                                            @foreach (CategoriesModel cat in cats_list)
+                                            {
+                                                if (!Model.Categories.Contains(cat.Name.ToString()))
+                                                {
+                                                    <li>
+                                                        <label>
+                                                            <input type="checkbox" name="categories" value="@cat.Name">@cat.Name
+                                                        </label>
+                                                    </li>
+                                                }
+                                                else
+                                                {
+                                                    <li>
+                                                        <label>
+                                                            <input type="checkbox" name="categories" checked="checked" value="@cat.Name">@cat.Name
+                                                        </label>
+                                                    </li>
+                                                }
+                                            }
+
+                                        </ul>
+                                    </div>
+                                    <label for="chooseCatagory" class="col-sm-2 control-label">Фильтры</label>
+                                    <div class="col-sm-offset-0 col-sm-5">
+                                        <ul class="checkbox catagory">
+                                            @foreach (FilterModel filter in filters_list)
+                                            {
+                                                if (!Model.Filters.Contains(filter.Description))
+                                                {
+                                                    <li>
+                                                        <label>
+                                                            <input type="checkbox" name="filters" value="@filter.Description">@filter.Description
+                                                        </label>
+                                                    </li>
+                                                }
+                                                else
+                                                {
+                                                    <li>
+                                                        <label>
+                                                            <input type="checkbox" name="filters" checked="checked" value="@filter.Description">@filter.Description
+                                                        </label>
+                                                    </li>
+                                                }
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputWorkingHours" class="col-sm-2 control-label">Изображение</label>
+                                    <div class="col-sm-10">
+                                        <input type="hidden" name="Images" value="@Model.Images" />
+                                        <input type="hidden" name="Img" value="@Model.Img"/>
+                                        <input type="file" name="img_file" multiple accept="image/*" id="main_img"/>
+                                        <img id="img_preview" style="max-width:100px;display:block; max-height:500px; background-size:contain;" />
+                                    </div>
+                                </div>
+                                @Html.HiddenFor(m => m.New_or_no)
+                                <div class="form-group">
+                                    <div class="col-sm-8"></div>
+                                    <div class="col-sm-2">
+                                        <button type="submit" class="btn btn-block btn-success"> <i class="fa fa-save indent_pad"></i> Сохранить</button>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <button type="button" class="btn btn-block btn-danger "><i class="fa fa-times-circle indent_pad"></i>Отменить</button>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        <!-- /.tab-pane -->
+                    </div>
+                    <!-- /.tab-content -->
+                </div>
+                <!-- /.nav-tabs-custom -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script>
+    $('#inputFile').change(function () {
+        var input = $(this)[0];
+        if (input.files && input.files[0]) {
+            if (input.files[0].type.match('image.*')) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#img-preview').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                console.log('ошибка, не изображение');
+            }
+        } else {
+            console.log('Хьюстон, у нас проблема');
+        }
+    });
+    $('#main_img').change(function () {
+        var input = $(this)[0];
+        if (input.files && input.files[0]) {
+            if (input.files[0].type.match('image.*')) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#img_preview').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                console.log('ошибка, не изображение');
+            }
+        } else {
+            console.log('Хьюстон, у нас проблема');
+        }
+    });
+    $('#reset-img-preview').click(function() {
+        $('#inputFile').val('');
+        $('#img-preview').attr('src', 'default-preview.jpg');
+    });
+
+
+    $("#save_img").on('click', function (e) {
+        e.preventDefault();
+        var files = document.getElementById('inputFile').files;
+        if (files.length > 0) {
+            if (window.FormData !== undefined) {
+                var data = new FormData();
+                for (var x = 0; x < files.length; x++) {
+                    data.append("file" + x, files[x]);
+                }
+
+                $.ajax({
+
+                    type: "POST",
+                    url: '@Url.Action("SaveNewImage", "Admin", new { place_id = Model.ID })',
+                    contentType: false,
+                    processData: false,
+                    data: data,
+                    success: function (result) {
+                        alert("Файл загружен");
+                    },
+                    error: function (xhr, status, p3) {
+                        alert(xhr.responseText);
+                    }
+                });
+            } else {
+                alert("Браузер не поддерживает загрузку файлов HTML5!");
+            }
+        }
+    });
+    $(".delete_img").on('click', function () {
+
+    });
+    $(".delete_img").click(function(){
+        var link = $(this).val();
+        if(confirm("Вы уверены, что хотите удалить изображение?"))
+        {
+            $.get({
+                url: "/Admin/DeleteImg?link=" + link +"&place_id=" + @Model.ID,
+                success: function (result) {
+                    alert("Файл удален");
+                },
+            });
+        }
+        $(this).unwrap();
+    });
+    $("#delete_place").click(function(){
+        if(confirm("Вы уверены, что хотите удалить место?"))
+        {
+            $.get({
+                url: "/Admin/DeletePlace?id=" + @Model.ID,
+                success: function (result) {
+                    alert("Файл удален");
+                },
+            });
+        }
+    });
+</script>

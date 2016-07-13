@@ -1,0 +1,147 @@
+﻿@model City_Go.Models.HomeModel
+@using City_Go.Models;
+@using City_Go.HtmlHelpers;
+@using System.Web.Mvc.Html;
+@using System.Text;
+
+ @helper  PageLinksDiv(PagesInfo pagingInfo)
+        {
+            StringBuilder result = new StringBuilder();
+            for (int i = 1; i <= pagingInfo.TotalPages; i++)
+            {
+                
+                if (i == pagingInfo.CurrentPage)
+                {
+                    <a id="@i" class="selected btn-primary new_page">@i</a>
+                }
+                else
+                {
+                    <a id="@i" class="btn btn-default new_page">@i</a>
+                }
+            }
+        }
+    <div class="overlay sections">
+
+        <div class="row">
+            <!--container-->
+
+
+
+
+            <div class="heading-content text-center">
+                <h1>Результат</h1>
+                <p></p>
+            </div>
+            <!-- Top Navigation -->
+
+
+
+            <div class="col-md-10 col-sm-offset-1 col-xm-12 col-sm-12">
+                <section id="grid" class="grid clearfix">
+                    @foreach(PlacesModel place in Model.Places)
+                    { 
+                    <a href="" data-path-hover="m 0,0 0,47.7775 c 24.580441,3.12569 55.897012,-8.199417 90,-8.199417 34.10299,0 65.41956,11.325107 90,8.199417 L 180,0 z">
+                        <figure>
+                            <img src="@place.Img" />
+                            <svg viewBox="0 0 180 320" preserveAspectRatio="none"><path d="m 0,0 0,171.14385 c 24.580441,15.47138 55.897012,24.75772 90,24.75772 34.10299,0 65.41956,-9.28634 90,-24.75772 L 180,0 0,0 z" /></svg>
+                            <figcaption>
+                                <h2>@place.Name</h2>
+                                <p>@place.Description</p>
+
+                            </figcaption>
+                        </figure>
+                    </a>
+                    }
+                </section>
+            </div>
+            <div class="page_links">
+                @PageLinksDiv(Model.PagingInfo)
+            </div>
+        </div><!-- /container -->
+        <script>
+			(function() {
+
+				function init() {
+					var speed = 330,
+						easing = mina.backout;
+
+					[].slice.call ( document.querySelectorAll( '#grid > a' ) ).forEach( function( el ) {
+						var s = Snap( el.querySelector( 'svg' ) ), path = s.select( 'path' ),
+							pathConfig = {
+								from : path.attr( 'd' ),
+								to : el.getAttribute( 'data-path-hover' )
+							};
+
+						el.addEventListener( 'mouseenter', function() {
+							path.animate( { 'path' : pathConfig.to }, speed, easing );
+						} );
+
+						el.addEventListener( 'mouseleave', function() {
+							path.animate( { 'path' : pathConfig.from }, speed, easing );
+						} );
+					} );
+				}
+
+				init();
+
+			})();
+			$(document).ready(function () {
+			    $('.new_page').click(function (e) {
+			        e.preventDefault();
+			        var category = $('#category_id').val();
+			        var filters = $('#filters_id').val();
+			        var value_of_sum = $('#value_of_sum').val();
+			        alert($(this).attr("id"));
+			        $('#result').load("/Home/Give_Result?category=" + category + "&filters=" + filters + "&value_of_sum=" + value_of_sum + "&page=" + $(this).attr("id"));
+			    });
+			});        </script>
+        <!-- /container -->
+        <!--<div class="container">
+            <div class="row">
+                <div class="experience-wrapper">
+
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="experience-content">
+
+                            <h4>Work Experience</h4>
+
+                            <div class="content-details content-border">
+                                <h5>Mad Max Design</h5>
+                                <h6>OCT 2013 - june 2014</h6>
+                                <p>orem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
+                            </div>
+
+                            <div class="content-details">
+                                <h5>Crazy Design</h5>
+                                <h6>OCT 2013 - june 2015</h6>
+                                <p>orem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="experience-content">
+
+                            <h4>Education</h4>
+
+                            <div class="content-details content-border">
+                                <h5>Maddison University</h5>
+                                <h6>OCT 2013 - june 2014</h6>
+                                <p>orem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
+                            </div>
+
+                            <div class="content-details">
+                                <h5>Max Design & Art Institute</h5>
+                                <h6>OCT 2013 - june 2015</h6>
+                                <p>orem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>-->
+    </div>
+

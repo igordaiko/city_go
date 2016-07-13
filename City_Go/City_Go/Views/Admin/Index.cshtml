@@ -1,0 +1,558 @@
+﻿@model City_Go.Models.HomeModel
+@using City_Go.Models;
+@using City_Go.HtmlHelpers;
+   @{
+        ViewBag.Title = "Список мест";
+        Layout = "~/Views/Admin/_AdminLayout.cshtml";
+       string table_name = "Places";
+    }
+<script src="~/Scripts/jquery-3.0.0.min.js"></script>
+    <!-- Content Wrapper. Contains page content -->
+<header class="main-header">
+    <!-- Logo -->
+    <a href="../../index2.html" class="logo">
+        <!-- mini logo for sidebar mini 50x50 pixels -->
+        <span class="logo-mini"><b>City</b>GO</span>
+        <!-- logo for regular state and mobile devices -->
+        <span class="logo-lg"><b>City</b>GO</span>
+    </a>
+    <!-- Header Navbar: style can be found in header.less -->
+    <nav class="navbar navbar-static-top">
+        <!-- Sidebar toggle button-->
+        <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </a>
+        <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+                <!-- Messages: style can be found in dropdown.less-->
+                <li class="dropdown messages-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-envelope-o"></i>
+                        <span class="label label-success">4</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="header">У Вас 4 сообщения</li>
+                        <li>
+                            <!-- inner menu: contains the actual data -->
+                            <ul class="menu">
+                                <li>
+                                    <!-- start message -->
+                                    <a href="#">
+                                        <div class="pull-left">
+                                            <img src="../../dist/img/comment_pic/pic_1.png" class="img-circle" alt="User Image">
+                                        </div>
+                                        <h4>
+                                            Служба поддержки
+                                            <small><i class="fa fa-clock-o"></i> 5 минут</small>
+                                        </h4>
+                                        <p>Когда пофиксишь баги?</p>
+                                    </a>
+                                </li>
+                                <!-- end message -->
+                                <li>
+                                    <a href="#">
+                                        <div class="pull-left">
+                                            <img src="../../dist/img/comment_pic/pic_2.png" class="img-circle" alt="User Image">
+                                        </div>
+                                        <h4>
+                                            Админ CityGO
+                                            <small><i class="fa fa-clock-o"></i> 2 часа</small>
+                                        </h4>
+                                        <p>Может запустим это чудо?</p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="pull-left">
+                                            <img src="../../dist/img/comment_pic/pic_4.png" class="img-circle" alt="User Image">
+                                        </div>
+                                        <h4>
+                                            Архитектор
+                                            <small><i class="fa fa-clock-o"></i>Сегодня</small>
+                                        </h4>
+                                        <p>Когда деньги выплатишь, аа?</p>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </li>
+                        <li class="footer"><a href="#">Посмотреть все сообщения</a></li>
+                    </ul>
+                </li>
+                <!-- Notifications: style can be found in dropdown.less -->
+                <li class="dropdown notifications-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-bell-o"></i>
+                        <span class="label label-warning">10</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="header">У Вас 10 уведомлений</li>
+                        <li>
+                            <!-- inner menu: contains the actual data -->
+                            <ul class="menu">
+                                <li>
+                                    <a href="#">
+                                        <i class="fa fa-users text-aqua"></i> 5 новых пользователей сегодня
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="fa fa-warning text-yellow"></i> Много текста сделает плохую работу. Короткие уведомления
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="fa fa-users text-red"></i> Добавлено 10 новых мест
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="fa fa-shopping-cart text-green"></i> 25 sales made
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="fa fa-user text-red"></i> Вы изменили названия Campus
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="footer"><a href="#">Просмотреть все</a></li>
+                    </ul>
+                </li>
+                <!-- Tasks: style can be found in dropdown.less -->
+                <li class="dropdown tasks-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-flag-o"></i>
+                        <span class="label label-danger">9</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="header">У Вас 9 задач</li>
+                        <li>
+                            <!-- inner menu: contains the actual data -->
+                            <ul class="menu">
+                                <li>
+                                    <!-- Task item -->
+                                    <a href="#">
+                                        <h3>
+                                            Сделать админку до утра 1 числа
+                                            <small class="pull-right">80%</small>
+                                        </h3>
+                                        <div class="progress xs">
+                                            <div class="progress-bar progress-bar-aqua" style="width: 80%" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
+                                                <span class="sr-only">80% Сделано</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <!-- end task item -->
+                                <li>
+                                    <!-- Task item -->
+                                    <a href="#">
+                                        <h3>
+                                            Сделать дизайн сайта
+                                            <small class="pull-right">40%</small>
+                                        </h3>
+                                        <div class="progress xs">
+                                            <div class="progress-bar progress-bar-green" style="width: 40%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                                <span class="sr-only">40% Сделано</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <!-- end task item -->
+                                <li>
+                                    <!-- Task item -->
+                                    <a href="#">
+                                        <h3>
+                                            Заполнить базу
+                                            <small class="pull-right">60%</small>
+                                        </h3>
+                                        <div class="progress xs">
+                                            <div class="progress-bar progress-bar-red" style="width: 60%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                                <span class="sr-only">60% Сделано</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <!-- end task item -->
+
+                            </ul>
+                        </li>
+                        <li class="footer">
+                            <a href="#">Посмотреть все задачи</a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- User Account: style can be found in dropdown.less -->
+                <li class="dropdown user user-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <img src="../../dist/img/comment_pic/pic_5.png" class="user-image" alt="User Image">
+                        <span class="hidden-xs">Чиж Роман</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <!-- User image -->
+                        <li class="user-header">
+                            <img src="../../dist/img/comment_pic/pic_5.png" class="img-circle" alt="User Image">
+                            <p>
+                                Чиж Роман - Web Developer
+                                <small>В компании с 2016</small>
+                            </p>
+                        </li>
+                        <!-- Menu Body -->
+                        <li class="user-body">
+                            <div class="row">
+                                <div class="col-xs-4 text-center">
+                                    <a href="#"></a>
+                                </div>
+                                <div class="col-xs-4 text-center">
+                                    <a href="#"></a>
+                                </div>
+                                <div class="col-xs-4 text-center">
+                                    <a href="#"></a>
+                                </div>
+                            </div>
+                            <!-- /.row -->
+                        </li>
+                        <!-- Menu Footer-->
+                        <li class="user-footer">
+                            <div class="pull-left">
+                                <a href="#" class="btn btn-default btn-flat">Профиль</a>
+                            </div>
+                            <div class="pull-right">
+                                <a href="#" class="btn btn-default btn-flat">Выйти</a>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <!-- Control Sidebar Toggle Button -->
+                <li>
+                    <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+<!-- Left side column. contains the logo and sidebar -->
+<aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+        <!-- Sidebar user panel -->
+        <div class="user-panel">
+            <div class="pull-left image">
+                <img src="../../dist/img/comment_pic/pic_5.png" class="img-circle" alt="User Image">
+            </div>
+            <div class="pull-left info">
+                <p>Чиж Роман</p>
+                <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+            </div>
+        </div>
+        <!-- search form -->
+        <form action="#" method="get" class="sidebar-form">
+            <div class="input-group">
+                <input type="text" name="q" class="form-control" placeholder="Поиск...">
+                <span class="input-group-btn">
+                    <button type="submit" name="search" id="search-btn" class="btn btn-flat">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </span>
+            </div>
+        </form>
+        <!-- /.search form -->
+        <!-- sidebar menu: : style can be found in sidebar.less -->
+        <ul class="sidebar-menu">
+            <li class="header">НАВИГАЦИЯ</li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-dashboard"></i> <span>Главная</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="../../index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
+                    <li><a href="../../index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-files-o"></i>
+                    <span>Свойсва разметки</span>
+                    <span class="pull-right-container">
+                        <span class="label label-primary pull-right">4</span>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="../layout/top-nav.html"><i class="fa fa-circle-o"></i> Top Navigation</a></li>
+                    <li><a href="../layout/boxed.html"><i class="fa fa-circle-o"></i> Boxed</a></li>
+                    <li><a href="../layout/fixed.html"><i class="fa fa-circle-o"></i> Fixed</a></li>
+                    <li><a href="../layout/collapsed-sidebar.html"><i class="fa fa-circle-o"></i> Collapsed Sidebar</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="../widgets.html">
+                    <i class="fa fa-th"></i> <span>Виджеты</span>
+                    <span class="pull-right-container">
+                        <small class="label pull-right bg-green">new</small>
+                    </span>
+                </a>
+            </li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-pie-chart"></i>
+                    <span>Графики</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="../charts/chartjs.html"><i class="fa fa-circle-o"></i> ChartJS</a></li>
+                    <li><a href="../charts/morris.html"><i class="fa fa-circle-o"></i> Morris</a></li>
+                    <li><a href="../charts/flot.html"><i class="fa fa-circle-o"></i> Flot</a></li>
+                    <li><a href="../charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-laptop"></i>
+                    <span>UI Элементы</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="../UI/general.html"><i class="fa fa-circle-o"></i> General</a></li>
+                    <li><a href="../UI/icons.html"><i class="fa fa-circle-o"></i> Icons</a></li>
+                    <li><a href="../UI/buttons.html"><i class="fa fa-circle-o"></i> Buttons</a></li>
+                    <li><a href="../UI/sliders.html"><i class="fa fa-circle-o"></i> Sliders</a></li>
+                    <li><a href="../UI/timeline.html"><i class="fa fa-circle-o"></i> Timeline</a></li>
+                    <li><a href="../UI/modals.html"><i class="fa fa-circle-o"></i> Modals</a></li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-edit"></i> <span>Формы</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="../forms/general.html"><i class="fa fa-circle-o"></i> General Elements</a></li>
+                    <li><a href="../forms/advanced.html"><i class="fa fa-circle-o"></i> Advanced Elements</a></li>
+                    <li><a href="../forms/editors.html"><i class="fa fa-circle-o"></i> Editors</a></li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-table"></i> <span>Таблицы</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="../tables/simple.html"><i class="fa fa-circle-o"></i> Simple tables</a></li>
+                    <li><a href="../tables/data.html"><i class="fa fa-circle-o"></i> Data tables</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="../calendar.html">
+                    <i class="fa fa-calendar"></i> <span>Календарь</span>
+                    <span class="pull-right-container">
+                        <small class="label pull-right bg-red">3</small>
+                        <small class="label pull-right bg-blue">17</small>
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a href="../mailbox/mailbox.html">
+                    <i class="fa fa-envelope"></i> <span>Почта</span>
+                    <span class="pull-right-container">
+                        <small class="label pull-right bg-yellow">12</small>
+                        <small class="label pull-right bg-green">16</small>
+                        <small class="label pull-right bg-red">5</small>
+                    </span>
+                </a>
+            </li>
+            <li class="treeview active">
+                <a href="#">
+                    <i class="fa fa-folder"></i> <span>Страницы</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="invoice.html"><i class="fa fa-circle-o"></i> Invoice</a></li>
+                    <li class="active"><a href="profile.html"><i class="fa fa-circle-o"></i> Profile</a></li>
+                    <li><a href="login.html"><i class="fa fa-circle-o"></i> Login</a></li>
+                    <li><a href="register.html"><i class="fa fa-circle-o"></i> Register</a></li>
+                    <li><a href="add_place.html"><i class="fa fa-circle-o"></i> Добавление места</a></li>
+                    <li><a href="filters_categories.html"><i class="fa fa-circle-o"></i> Категории и фильтры</a></li>
+                    <li><a href="places.html"><i class="fa fa-circle-o"></i> Список мест</a></li>
+                    <li><a href="edit_place.html"><i class="fa fa-circle-o"></i> Редактирование места</a></li>
+                    <li><a href="lockscreen.html"><i class="fa fa-circle-o"></i> Lockscreen</a></li>
+                    <li><a href="404.html"><i class="fa fa-circle-o"></i> 404 Error</a></li>
+                    <li><a href="500.html"><i class="fa fa-circle-o"></i> 500 Error</a></li>
+                    <li><a href="blank.html"><i class="fa fa-circle-o"></i> Blank Page</a></li>
+                    <li><a href="pace.html"><i class="fa fa-circle-o"></i> Pace Page</a></li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-share"></i> <span>Уровни</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-circle-o"></i> Level One
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="#"><i class="fa fa-circle-o"></i> Level Two</a></li>
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-circle-o"></i> Level Two
+                                    <span class="pull-right-container">
+                                        <i class="fa fa-angle-left pull-right"></i>
+                                    </span>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
+                                    <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
+                </ul>
+            </li>
+            <li><a href="../../documentation/index.html"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
+            <li class="header">LABELS</li>
+            <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
+            <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
+            <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>
+        </ul>
+    </section>
+    <!-- /.sidebar -->
+</aside>
+
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                Список мест
+                <small></small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i>Главная</a></li>
+                <li><a href="#">Страницы</a></li>
+                <li class="active">Список мест</li>
+            </ol>
+        </section>
+        <div class="pad margin no-print">
+            <div class="callout callout-info" style="margin-bottom: 0!important;">
+                <h4><i class="fa fa-info"></i> Подсказка:</h4>
+                Появилось новое место. Здесь ты можешь его добавить.
+                <div class="row">
+                    <a href="/Admin/EditPlace">
+                        <button type="button" class="btn btn-success pull-right" style="margin-right: 5px;">
+                            <i class="fa fa-plus indent_pad"></i>Добавить место
+                        </button>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+        <!-- Main content -->
+        <section class="invoice">
+            <!-- title row -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <h2 class="page-header">
+                        <i class="fa fa-globe"></i> CityGO, Inc.
+                        <small class="pull-right">Date: 2/10/2014</small>
+                    </h2>
+                </div>
+                <!-- /.col -->
+            </div>
+
+            <!-- Table row -->
+            <div class="row">
+                <div class="col-xs-12 table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>№</th>
+                                <th>Место</th>
+                                <th>Адрес</th>
+                                <th>Описание</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                           @foreach (PlacesModel place in Model.Places)
+                           {
+                            <tr>
+                                <td>@place.ID</td>
+                                <td>@place.Name</td>
+                                <td>@Html.Raw(place.Address)</td>
+                                <td>@place.Description</td>
+                                <td>
+                                    <div class="row">
+                                            <button type="button"  class="btn btn-danger pull-right delete_place" value="@place.ID" style="margin-right: 5px;">
+                                                <i class="fa fa-remove"></i>
+                                            </button>
+                                            <a href="/Admin/EditPlace?id=@place.ID">
+                                                <button type="button" class="btn btn-warning pull-right" style="margin-right: 5px;">
+                                                    <i class="fa fa-edit"></i>
+                                                </button>
+                                            </a>
+</div>
+                                </td>
+                            </tr>
+                           }
+                            
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+            @if(Model.PagingInfo.TotalPages > 1)
+            {
+            <div class="page_links">
+                @Html.PageLinks(Model.PagingInfo, x => Url.Action("Index", new { page = x }))
+            </div>
+            }
+
+        </section>
+        <!-- /.content -->
+        <div class="clearfix"></div>
+    </div>
+
+
+<script>
+    $(".delete_place").click(function () {
+        var place_id = $(this).val();
+        alert(place_id);
+        if(confirm("Вы уверены, что хотите удалить место?"))
+        {
+            $.get({
+                type: "POST",
+                url: "/Admin/DeletePlace?id=" +place_id,
+                success: function (result) {
+                    alert("Файл удален");
+                },
+            });
+        }
+    })
+</script>
