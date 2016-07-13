@@ -13,7 +13,7 @@ using Microsoft.Owin.Security;
 using System.Security.Claims;
 using City_Go.Filters;
 using WebMatrix.WebData;
-
+//Найди меня Игорь 
 namespace City_Go.Controllers
 {
     [Authorize]
