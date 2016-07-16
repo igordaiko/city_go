@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Data;
 using System.Data.SqlClient;
 using System.Data.Sql;
+using System.IO;
 using City_Go.DataBase;
 using System.ComponentModel.DataAnnotations;
 using City_Go.Models;
@@ -16,6 +17,27 @@ namespace City_Go.Controllers
     public class AdminController : Controller
     {
         // GET: Admin
+
+        public ActionResult Pages()
+        {
+            return PartialView();
+        }
+        public ActionResult Page(string filename)
+        {
+            HtmlPageModel model = new HtmlPageModel();
+            model.ViewFile = new FileInfo(Server.MapPath("~/Views/Home/" + filename));
+            model.HtmlCode = System.IO.File.ReadAllText(Server.MapPath("~/Views/Home/" + filename));
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult Page(string filename, string HtmlCode)
+        {
+            string directory_name = Server.MapPath("~/Views/Home/" + filename);
+            System.IO.File.WriteAllText(directory_name, HtmlCode);
+            return Page(filename);
+        }
 
         public ActionResult Index(int page = 1)
         {

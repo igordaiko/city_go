@@ -124,14 +124,15 @@ namespace City_Go.DataBase
         }
         public int CreateId()
         {
-            int id, i = 100;
+            int id, i = 10;
+            set.Tables[0].PrimaryKey = new DataColumn[] { set.Tables[0].Columns[0] };
             do
             {
                 id = Math.Abs(new Random().Next(0, i) * Int32.Parse(DateTime.Now.Millisecond.ToString()));
                 i *= 10;
             }
             while (set.Tables[0].Rows.Contains(id));
-            
+
             return id;
         }
     }

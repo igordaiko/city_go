@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNet.Identity
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -25,6 +27,274 @@
     <![endif]-->
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
+    <header class="main-header">
+        <!-- Logo -->
+        <a href="../../index2.html" class="logo">
+            <!-- mini logo for sidebar mini 50x50 pixels -->
+            <span class="logo-mini"><b>City</b>GO</span>
+            <!-- logo for regular state and mobile devices -->
+            <span class="logo-lg"><b>City</b>GO</span>
+        </a>
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top">
+            <!-- Sidebar toggle button-->
+            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <!-- Messages: style can be found in dropdown.less-->
+                    @*<li class="dropdown messages-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-envelope-o"></i>
+                            <span class="label label-success">4</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="header">У Вас 4 сообщения</li>
+                            
+                        </ul>
+                    </li>*@
+                    <!-- Notifications: style can be found in dropdown.less -->
+                    @*<li class="dropdown notifications-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-bell-o"></i>
+                            <span class="label label-warning">10</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            
+
+                        </ul>
+                    </li>*@
+                    <!-- User Account: style can be found in dropdown.less -->
+                    <li class="dropdown user user-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            @*<img src="../../dist/img/comment_pic/pic_5.png" class="user-image" alt="User Image">*@
+                            <span class="hidden-xs">@User.Identity.GetUserName()</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <!-- User image -->
+                            <li class="user-header">
+                                <p>
+                                    @User.Identity.GetUserName()
+                                </p>
+                            </li>
+                            <!-- Menu Body -->
+                            <li class="user-body">
+                                <div class="row">
+                                    <div class="col-xs-4 text-center">
+                                        <a href="#"></a>
+                                    </div>
+                                    <div class="col-xs-4 text-center">
+                                        <a href="#"></a>
+                                    </div>
+                                    <div class="col-xs-4 text-center">
+                                        <a href="#"></a>
+                                    </div>
+                                </div>
+                                <!-- /.row -->
+                            </li>
+                            <!-- Menu Footer-->
+                            <li class="user-footer">
+                                <div class="pull-right">
+                                    <a href="#" class="btn btn-default btn-flat">Выйти</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- Control Sidebar Toggle Button -->
+                    <li>
+                        <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+            <!-- Sidebar user panel -->
+
+            <!-- search form -->
+            <form action="#" method="get" class="sidebar-form">
+                <div class="input-group">
+                    <input type="text" name="q" class="form-control" placeholder="Поиск...">
+                    <span class="input-group-btn">
+                        <button type="submit" name="search" id="search-btn" class="btn btn-flat">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </span>
+                </div>
+            </form>
+            <!-- /.search form -->
+            <!-- sidebar menu: : style can be found in sidebar.less -->
+            <ul class="sidebar-menu">
+                <li class="header">НАВИГАЦИЯ</li>
+                <li class="treeview">
+                    <a href="/Admin/Index">
+                        <i class="fa fa-dashboard"></i> <span>Главная</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="../../index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
+                        <li><a href="../../index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-files-o"></i>
+                        <span>Свойсва разметки</span>
+                        <span class="pull-right-container">
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                    </ul>
+                </li>
+                <li>
+                    <a href="../widgets.html">
+                        <i class="fa fa-th"></i> <span>Виджеты</span>
+                        <span class="pull-right-container">
+                        </span>
+                    </a>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-pie-chart"></i>
+                        <span>Графики</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="../charts/chartjs.html"><i class="fa fa-circle-o"></i> ChartJS</a></li>
+                        <li><a href="../charts/morris.html"><i class="fa fa-circle-o"></i> Morris</a></li>
+                        <li><a href="../charts/flot.html"><i class="fa fa-circle-o"></i> Flot</a></li>
+                        <li><a href="../charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-laptop"></i>
+                        <span>UI Элементы</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="../UI/general.html"><i class="fa fa-circle-o"></i> General</a></li>
+                        <li><a href="../UI/icons.html"><i class="fa fa-circle-o"></i> Icons</a></li>
+                        <li><a href="../UI/buttons.html"><i class="fa fa-circle-o"></i> Buttons</a></li>
+                        <li><a href="../UI/sliders.html"><i class="fa fa-circle-o"></i> Sliders</a></li>
+                        <li><a href="../UI/timeline.html"><i class="fa fa-circle-o"></i> Timeline</a></li>
+                        <li><a href="../UI/modals.html"><i class="fa fa-circle-o"></i> Modals</a></li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-edit"></i> <span>Формы</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="../forms/general.html"><i class="fa fa-circle-o"></i> General Elements</a></li>
+                        <li><a href="../forms/advanced.html"><i class="fa fa-circle-o"></i> Advanced Elements</a></li>
+                        <li><a href="../forms/editors.html"><i class="fa fa-circle-o"></i> Editors</a></li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-table"></i> <span>Таблицы</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="/Admin/Index"><i class="fa fa-circle-o"></i>Места</a></li>
+                        <li><a href="/Admin/CategoriesAndFilters"><i class="fa fa-circle-o"></i>Категории и фильтры</a></li>
+                        @*<li><a href="/Admin/Users"><i class="fa fa-circle-o"></i>Администраторы и модераторы</a></li>*@
+                    </ul>
+                </li>
+                @*<li>
+                    <a href="../calendar.html">
+                        <i class="fa fa-calendar"></i> <span>Календарь</span>
+                        <span class="pull-right-container">
+                            <small class="label pull-right bg-red">3</small>
+                            <small class="label pull-right bg-blue">17</small>
+                        </span>
+                    </a>
+                </li>*@
+                @*<li>
+                    <a href="../mailbox/mailbox.html">
+                        <i class="fa fa-envelope"></i> <span>Почта</span>
+                        <span class="pull-right-container">
+                            <small class="label pull-right bg-yellow">12</small>
+                            <small class="label pull-right bg-green">16</small>
+                            <small class="label pull-right bg-red">5</small>
+                        </span>
+                    </a>
+                </li>*@
+                <li class="treeview active">
+                    <a href="#">
+                        <i class="fa fa-folder"></i> <span>Страницы</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    @{Html.RenderPartial("Pages");}
+                    
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-share"></i> <span>Уровни</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-circle-o"></i> Level One
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="#"><i class="fa fa-circle-o"></i> Level Two</a></li>
+                                <li>
+                                    <a href="#">
+                                        <i class="fa fa-circle-o"></i> Level Two
+                                        <span class="pull-right-container">
+                                            <i class="fa fa-angle-left pull-right"></i>
+                                        </span>
+                                    </a>
+                                    <ul class="treeview-menu">
+                                        <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
+                                        <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
+                    </ul>
+                </li>
+                <li><a href="../../documentation/index.html"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
+                <li class="header">LABELS</li>
+                <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
+                <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
+                <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>
+            </ul>
+        </section>
+        <!-- /.sidebar -->
+    </aside>
+
+
     <div class="wrapper">
         <!-- Content Wrapper. Contains page content -->
 

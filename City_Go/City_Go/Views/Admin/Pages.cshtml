@@ -1,0 +1,22 @@
+﻿@using City_Go.Models;
+@{
+    HtmlPagesModel model = new HtmlPagesModel();
+    string directory_name = Server.MapPath("~/Views/Home");
+    DirectoryInfo directory = new DirectoryInfo(directory_name);
+    model.Pages = new List<HtmlPageModel>();
+    HtmlPageModel page;
+    foreach (FileInfo file in directory.GetFiles("*.cshtml", SearchOption.AllDirectories))
+    {
+        page = new HtmlPageModel();
+        page.ViewFile = file;
+        page.HtmlCode = System.IO.File.ReadAllText(file.FullName);
+        model.Pages.Add(page);
+    }
+}
+<ul class="treeview-menu">
+    @foreach (HtmlPageModel item in model.Pages)
+    {
+        <li><a href="/Admin/Page?filename=@item.ViewFile.Name"><i class="fa fa-circle-o"></i>@item.ViewFile.Name</a></li>
+    }
+
+</ul>
