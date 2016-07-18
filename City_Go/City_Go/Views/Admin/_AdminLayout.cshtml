@@ -29,7 +29,7 @@
 <body class="hold-transition skin-blue sidebar-mini">
     <header class="main-header">
         <!-- Logo -->
-        <a href="../../index2.html" class="logo">
+        <a href="/Admin/Index" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
             <span class="logo-mini"><b>City</b>GO</span>
             <!-- logo for regular state and mobile devices -->
@@ -140,10 +140,7 @@
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
                     </a>
-                    <ul class="treeview-menu">
-                        <li><a href="../../index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
-                        <li><a href="../../index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
-                    </ul>
+
                 </li>
                 <li class="treeview">
                     <a href="#">
@@ -215,6 +212,10 @@
                         </span>
                     </a>
                     <ul class="treeview-menu">
+                        @if (User.Identity.Name == "IgorDaiko")
+                        {
+                            <li><a href="/Admin/AccessToAdminPanel"><i class="fa fa-circle-o"></i>Доступ к админке</a></li>
+                        }
                         <li><a href="/Admin/Index"><i class="fa fa-circle-o"></i>Места</a></li>
                         <li><a href="/Admin/CategoriesAndFilters"><i class="fa fa-circle-o"></i>Категории и фильтры</a></li>
                         @*<li><a href="/Admin/Users"><i class="fa fa-circle-o"></i>Администраторы и модераторы</a></li>*@

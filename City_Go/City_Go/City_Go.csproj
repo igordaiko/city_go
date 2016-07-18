@@ -1066,6 +1066,7 @@
     <Compile Include="DataBase\DataBaseInfo.cs" />
     <Compile Include="DataBase\Filter_Reader.cs" />
     <Compile Include="DataBase\Images_Reader.cs" />
+    <Compile Include="DataBase\Streets_Reader.cs" />
     <Compile Include="DataBase\Users_Reader.cs" />
     <Compile Include="Filters\InitializeSimpleMemberShip.cs" />
     <Compile Include="HtmlHelpers\PagingHelpers.cs" />
@@ -1082,6 +1083,8 @@
     <Compile Include="Models\CategoriesModel.cs" />
     <Compile Include="Models\FilterModel.cs" />
     <Compile Include="Models\HomeModel.cs" />
+    <Compile Include="Models\HtmlPageModel.cs" />
+    <Compile Include="Models\HtmlPagesModel.cs" />
     <Compile Include="Models\ImageModel.cs" />
     <Compile Include="Models\PagesInfo.cs" />
     <Compile Include="Models\PlacesModel.cs" />
@@ -1094,7 +1097,9 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\web.config" />
+    <Content Include="Views\web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1124,6 +1129,9 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Scripts\jquery-3.0.0.slim.min.map" />
     <Content Include="Scripts\jquery-3.0.0.min.map" />
+    <Content Include="Views\Admin\Pages.cshtml" />
+    <Content Include="Views\Admin\Page.cshtml" />
+    <Content Include="Views\Admin\AccessToAdminPanel.cshtml" />
     <None Include="Views\web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -1159,7 +1167,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>51464</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:51464/</IISUrl>
+          <IISUrl>http://localhost:51265/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>http://citygo.com.ua</CustomServerUrl>

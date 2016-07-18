@@ -200,7 +200,7 @@
                                     <label for="inputAdress" class="col-sm-2 control-label">Адрес</label>
                                     <div class="col-sm-10">
                                         <div id="editor-field">
-                                            @Html.EditorFor(model => model.Address)
+                                            @Html.EditorFor(model => model.Address, new { id = "address" })
                                         </div>
                                     </div>
                                 </div>
@@ -280,6 +280,31 @@
                                         </ul>
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <label for="inputWorkingHours" class="col-sm-2 control-label">Город</label>
+                                    <div class="col-sm-10">
+                                        <div id="editor-field">
+                                            @Html.EditorFor(model => model.City, new { value = "Киев" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputWorkingHours" class="col-sm-2 control-label">Район</label>
+                                    <div class="col-sm-10">
+                                        <div id="editor-field">
+                                            @Html.TextBoxFor(model => model.District, new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputWorkingHours" class="col-sm-2 control-label">Ближайшие метро</label>
+                                    <div class="col-sm-10">
+                                        <div id="editor-field">
+                                            @Html.TextBoxFor(model => model.Metrostations, new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                </div>
+                                
                                 <div class="form-group">
                                     <label for="inputWorkingHours" class="col-sm-2 control-label">Изображение</label>
                                     <div class="col-sm-10">
@@ -382,9 +407,6 @@
                 alert("Браузер не поддерживает загрузку файлов HTML5!");
             }
         }
-    });
-    $(".delete_img").on('click', function () {
-
     });
     $(".delete_img").click(function(){
         var link = $(this).val();

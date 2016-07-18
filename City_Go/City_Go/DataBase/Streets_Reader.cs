@@ -11,28 +11,27 @@ using System.Data.Common;
 
 namespace City_Go.DataBase
 {
-    public class Places_Reader : ITable
+    public class Streets_Reader : ITable
     {
         public SqlDataAdapter adapter;
         SqlCommand command;
         SqlConnection connection;
         DataSet set;
         string query, con;
-        public Places_Reader()
+        public Streets_Reader()
         {
-            query = "Select * from Places";
+            query = "Select * from Streets";
             command = new SqlCommand(query);
             con = DataBaseInfo.GetDataBaseConnectionString();
             connection = new SqlConnection(con);
             adapter = new SqlDataAdapter(query, connection);
             Adapter = adapter;
-            queryUpdate = "Update Places set [name] = @p2, [categories] = @p3, [filters] = @p4, [description] = @p5, [img] = @p6, [price] = @p7, [address] = @p8, [full_description] = @p9, [contacts] = @p10, [images] = @p11, [work_time] = @p12, [visitors] = @p13, [likes] = @p14, [dislikes] = @p15," +
-               " [rating] = @p16, [City] = @p17, [District] = @p18, [Metro_Stations] = @p19" +
-               " where [id] = @p1";
-
+            //queryUpdate = "Update Streets set [street_ua] = @p2, [street_rus] = @p3" +
+            //    " where [id] = @p1";
         }
         public SqlDataAdapter Adapter { get; set; }
         public string queryUpdate { get; set; }
+
 
     }
 }

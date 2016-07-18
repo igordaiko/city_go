@@ -55,7 +55,7 @@ namespace City_Go.Controllers
 
             return View(model);
         }
-
+        
 
         //---Работа с местами---
         [HttpPost]
@@ -68,10 +68,16 @@ namespace City_Go.Controllers
             result.Categories = GiveIdsByNameList(categories, new Categories_Reader());
             result.Filters = GiveIdsByNameList(filters, new Filter_Reader());
             if(img_file != null)
-            { 
-                img_file.SaveAs(Server.MapPath("/img/" + img_file.FileName));
-                result.Img = "/img/" + img_file.FileName;
+            {
+                if (!Directory.Exists(Server.MapPath("/img/" + place.Name)))
+                    Directory.CreateDirectory(Server.MapPath("/img/" + place.Name ));
+                img_file.SaveAs(Server.MapPath("/img/" + place.Name + "/" + img_file.FileName));
+                result.Img = "/img/" + place.Name + "/" + img_file.FileName;
             }
+            if (place.District == null)
+                place.District = Find_DistrictAndMetro(place.Address).Split('|')[0];
+            if (place.Metrostations == null)
+                place.Metrostations = Find_DistrictAndMetro(place.Address).Split('|')[1];
             GenericListOfElements<PlacesModel> gen_model = new GenericListOfElements<PlacesModel>(itable, result);
             if (place.New_or_no.Equals("new"))
                 reader.AddRow(gen_model.ParametersToUpdate);
@@ -209,8 +215,42 @@ namespace City_Go.Controllers
         //End---Работа с категориями и фильтрами--
 
 
+        //---Доступ к админке---
+        public ActionResult AccessToAdminPanel()
+        {
+            UsersProfiles users = new UsersProfiles();
+            ITable itable = new Users_Reader();
+            GenericListOfElements<UserProfile> gen_users = new GenericListOfElements<UserProfile>(itable);
+            users.Users = gen_users.ListOfItems;
+            users.Roles = System.Web.Security.Roles.GetAllRoles();
+            return View(users);
+        }
+
+        ///End---Доступ к админке----
+
 
         //---Вспомогательные методы.---
+
+        [ValidateInput(false)]
+        public string Find_DistrictAndMetro(string address)
+        {
+            string result;
+            ITable itable = new Streets_Reader();
+            WorkWithDataBase reader = new WorkWithDataBase(itable);
+            DataTable table_with_streets = reader.SelectAllRows();
+            DataRow result_row = null;
+            foreach (DataRow row in table_with_streets.Rows)
+                if ((address.Contains(row[1].ToString()) && row[1].ToString() != "") || (address.Contains(row[2].ToString()) && row[2].ToString() != ""))
+                    result_row = row;
+            if (result_row != null)
+            {
+                result = result_row[3].ToString() + "|" + result_row[4].ToString();
+            }
+            else
+                result = "|";
+            return result;
+        }
+        
         [HttpPost]
         [Authorize(Roles = "admin")]
         public void DeletePlace(int id)
@@ -230,22 +270,19 @@ namespace City_Go.Controllers
                     // получаем имя файла
                     string fileName = System.IO.Path.GetFileName(upload.FileName);
                     // сохраняем файл в папку Files в проекте
-                    upload.SaveAs(Server.MapPath("/img/" + fileName));
                     
                     ITable itable = new Places_Reader();
                     WorkWithDataBase reader = new WorkWithDataBase(itable);
-
+                    
                     if (place_id != null)
                     {
-                        string value = reader.SelectRowsByFilter(place_id.ToString(), "id").Rows[0]["Images"].ToString() + "/img/" + fileName.ToString() + ";";
+                        string name = reader.SelectRowsByFilter(place_id.ToString(), "id").Rows[0]["name"].ToString();
+                        upload.SaveAs(Server.MapPath("/img/" + name + "/" + fileName));
+                        string value = reader.SelectRowsByFilter(place_id.ToString(), "id").Rows[0]["images"].ToString() + "/img/" + name + "/" + fileName.ToString() + ";";
                         reader.UpdateRow("images", value, (int)place_id, "Places");
                     }
                         
-                    else
-                    {
-                        place_id = reader.CreateId();
-                        reader.AddRow("/img/" + fileName.ToString() + ";", "images", (int)place_id);
-                    }
+                    
                 }
 
             }

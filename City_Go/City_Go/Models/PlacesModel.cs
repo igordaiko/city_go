@@ -28,6 +28,10 @@ namespace City_Go.Models
         public int Visitors { get; set; }
         public int Likes { get; set; }
         public int Dislikes { get; set; }
+        public double Rating { get; set; }
+        public string City { get; set; }
+        public string District { get; set; }
+        public string Metrostations { get; set; }
         public List<ReviewModel> Reviews { get; set; }
         public string New_or_no { get; set; }
 
